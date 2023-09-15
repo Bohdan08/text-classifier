@@ -1,9 +1,16 @@
 const express = require("express");
+const cors = require('cors'); 
 const querystring = require("querystring");
+const app = express();
 const url = require("url");
+var bodyParser = require("body-parser");
 const { MyClassificationPipeline } = require("./model");
 
-const app = express();
+app.use(cors()); // Enable CORS
+app.use(express.json()); // Recognize Request Objects as JSON objects
+app.use(express.static("build")); // serve static files (css & js) from the 'public' directory
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // get instance
 MyClassificationPipeline.getInstance();
@@ -17,7 +24,7 @@ app.get("/api/classify", async (req, res) => {
 
   const classifier = await MyClassificationPipeline.getInstance();
   response = await classifier(text);
-  
+
   res.json(response);
 });
 
