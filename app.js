@@ -8,7 +8,7 @@ const app = express();
 // get instance
 MyClassificationPipeline.getInstance();
 
-app.get("/", (req, res) => res.send("Server running"));
+// app.get("/", (req, res) => res.send("Server running"));
 
 app.get("/api/classify", async (req, res) => {
   const parsedUrl = url.parse(req.url);
