@@ -23,7 +23,7 @@ app.get("/api/classify", async (req, res) => {
   const { text } = querystring.parse(parsedUrl.query);
 
   const classifier = await MyClassificationPipeline.getInstance();
-  response = await classifier(text);
+  response = await classifier(text, { topk: null });
 
   res.json(response);
 });
